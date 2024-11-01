@@ -1,0 +1,4 @@
+{
+    "deployment": "production",
+    "version": "6_2_close_after_redirect"
+}

@@ -1,0 +1,21 @@
+<script>
+var autience_initiated_at = Date.now()
+</script>
+<div id="yetience-loader" class="cssload-wraper">
+    <div class="cssload-dots"></div>
+</div>
+<div class="" ng-controller="MainController">
+    <div id="yetience-content" style="display:none">
+        
+        <div class="yel-newuser-menubar" ng-hide="onStartPage()">
+            <div class="menubar-title"><a href="#">{{R.Y.title}} ({{R.packages[S.package_id].name}})</a></div>
+
+            <div class="menubar-right-contents">
+                <div ng-click="viewExtensions()">Premium Extensions</div>
+                <div><a href="http://yeloni.com/contact.php" target="_blank">Contact Support</a></div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    
+    <div ui-view></div></div>
+</div>

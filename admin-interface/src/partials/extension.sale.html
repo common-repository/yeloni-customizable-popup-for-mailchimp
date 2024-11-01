@@ -1,0 +1,75 @@
+<div class="" ng-hide="SS.setup().package_id!='default'">
+
+<div class="col-md-12 yel-premium-feature-wrapper">
+    <div ng-repeat="feature in R.features | orderBy:'order'" class="col-md-6 col-xs-6 yel-single-extension">
+        <div class="yel-single-extension-data">
+            <div class="">
+                <h3>
+                    <span class="glyphicon" ng-class="featureIcon(feature)" style="font-size: 20px;"></span> {{feature.title}} - <span style="font-size:16px; font-weight:normal">[${{displayPriceForFeature(feature.label)}}/month]</span>
+                    
+
+                </h3>
+                <div>
+                    <p class="text-muted2"> {{feature.description}}</p>
+                </div>
+
+                <div style="padding-top:10px;">
+                    <strong>Why should you use this?</strong>
+                    <p class="text-muted">
+                        {{feature.why}}
+                    </p>
+                </div>
+                <div>
+                    <strong>Who uses this?</strong>
+                    <p class="text-muted"> {{feature.who}}</p>
+                    <br>
+                </div>
+            </div>
+            <div class="yel-payments-block">
+                <div ng-hide="SS.hasFeature(feature.label)">
+                    
+                    <div class="col-xs-4">
+                        <div extension-paypal websiteid="{{website_id}}" feature='{{feature.label}}' price='{{priceForFeature(feature.label,12)}}'></div>
+                        <strong>${{displayPriceForFeature(feature.label)*10}} annually</strong>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div extension-paypal websiteid="{{website_id}}" feature='{{feature.label}}' price='{{priceForFeature(feature.label,6)}}'></div>
+                        <strong>${{displayPriceForFeature(feature.label)*6}} for 6 months</strong>
+                        <div style="clear:both"></div>
+                    </div>
+                        <div class="col-xs-4">
+                        <div extension-paypal websiteid="{{website_id}}" feature='{{feature.label}}' price='{{priceForFeature(feature.label,1)}}'></div>
+                        <strong>${{displayPriceForFeature(feature.label)}} for 1 month</strong>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+
+
+                <div ng-show="SS.hasFeature(feature.label)">
+                    <span class="glyphicon glyphicon-ok" style="font-size: 40px;"></span>
+                    <div>Unlocked</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="clear:both; margin-top:30px;"></div>
+<div class="col-md-12 form-group" style="margin-left:15px;">
+    <label for="inputlg">Got an Activation Key?</label>
+    <table width="50%">
+        <tr>
+            <td width="70%"><input style="width:98%; height:36px; font-size:14px;" class="form-control input-lg" id="inputlg" type="text" ng-model="key" placeholder="enter key here"></td>
+            <td width="30%"><button type="button" class="btn btn-primary btn-block" ng-click="activate(key)">Activate</button></td>
+        </tr>
+    </table>
+
+
+    <div id="yel-activation-status">            
+    </div>
+</div>
+</div>

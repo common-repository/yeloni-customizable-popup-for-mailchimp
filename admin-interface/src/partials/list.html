@@ -1,0 +1,93 @@
+<!--this page shows a list of popups -->
+<div class="yel-list-page-wrapper" ng-if="R.setup_initialized" ng-hide="R.readyToSave">
+    <div class="col-xs-12 col-md-10 col-md-offset-1" ng-show="setup_initialized">
+        <div class="panel panel-default yel-list-table">
+            <div class="panel-heading">
+                <div class="yel-add-new-popup">
+                    <a href="#/create/build/select" style="cursor:pointer; color:#42bca2" class="btn btn-default btn-xs yel-add-widget">
+                        <span class="glyphicon glyphicon-plus"></span><b style="font-size:14px;">&nbsp;Add New Widget</b></a>
+                    </div>
+                    <div class="panel-title" style="inline-block">Your Widgets:</div>
+                </div>
+                <!-- Table -->
+                <table class="table" border="0">
+                    <tr class="yel-table-top">
+
+                        <td class="yel-spl-centercol" sidth="40px">#</td>
+                        <td class="yel-spl-centercol" width="60px">Active</td>
+                        <td class="" width="40%;">Widget Type</td>
+                        <td class="">Shown on</td>
+                        <td class="" width="40%;">Actions</td>
+
+                    </tr>
+                    <tr ng-repeat="comp in list.widgets track by $index">
+                        <td class="yel-spl-centercol">{{$index+1}}</td>
+                        <td class="yel-spl-centercol">
+                            <input type="checkbox" ng-model="comp.configuration.what.enable" ng-change="changeEnable(comp.configuration.what.enable, comp.configuration.what.name)">
+                        </td>
+                        <td class="">
+                            {{R.themes[comp.theme].title}}
+                        </td>
+                        <td class="">
+                            <span ng-show="comp.configuration.where.home == true && comp.configuration.where.other=='all'">All Pages</span>
+                            <span ng-hide="comp.configuration.where.home == true && comp.configuration.where.other=='all'">Selected Pages</span>
+                        </td>
+                        <td class="yel-edit">
+                            <a ng-href="#/edit/build/design?index={{$index}}" class="btn btn-default btn-xs yel-edit-link" ng-click="C.createNewEvent('edit_clicked')">
+                                <button class="btn btn-xs btn-default "><span class="glyphicon glyphicon-pencil text-muted"></span><span class="text-muted">&nbsp;Edit</span></button>
+                            </a>
+                            &nbsp;
+                            <a ng-click="configure($index);C.createNewEvent('configure_clicked')" class="btn btn-default btn-xs yel-edit-link pointer">
+                                <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-cog text-muted"></span><span class="text-muted">&nbsp;Configure</span></button>
+                            </a>
+                            &nbsp;
+                            <a ng-click="emailListModal($index);C.createNewEvent('email_list_clicked')" ng-show="isEmailTheme($index)">
+                                <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-envelope text-muted"></span><span class="text-muted">&nbsp;View Email List</span></button>
+                            </a>
+                            &nbsp;
+                            <a ng-click="removeWidget($index);C.createNewEvent('delete_clicked')" class="btn btn-default btn-xs yel-edit-link pointer">
+                                <span class="glyphicon glyphicon-remove text-muted"></span><span class="text-muted">&nbsp;Delete</span>
+                            </a>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1 yel-premium-features-on-list" id="yel-popup-feedback-inpage" ng-show="yelShowFeedback()">
+
+            <div class="yel-popup-feedback-inpage">
+                <div class="yel-popup-feedback-inpage-close" ng-click="hide_inpage_popup_feedback(feedback)">X</div>
+                <div>
+                    <b><span class="glyphicon glyphicon-question-sign"></span> Is your widget working correctly?&nbsp;&nbsp;&nbsp;&nbsp;
+                   
+                    <!-- WORRRKKKK ON THIS LATER--------------------
+
+                    <span class="yel-pf-questions">YES</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="yel-pf-questions">NO</span>
+                    -->
+                    
+                    </b>
+                    <hr/>
+                    <formly-form fields="configFields.feedback" model="feedback"></formly-form>
+        
+                    <div ng-show="feedbackComplete(feedback)">
+                        <button type="button" class="btn btn-primary" style="margin-top:5px" ng-click="sendFeedback(feedback)" >Submit</button>
+                    </div>
+                </div>
+                <div class="popup-feedback-questions"></div>
+            </div>
+
+        </div>
+
+        <div class="col-md-10 col-md-offset-1 yel-premium-features-on-list">
+
+            <div ng-click="toggle_list_show_extensions()" class="yel-show-premium-list">Click to View Premium Addons that Boost Your Conversions.</div>
+
+            <div ng-show="list_show_extensions" ng-include="extensionSalePartial()" ng-controller="extensionSaleController"></div>
+        </div>
+    </div>
+<!--
+<json-formatter json="S.setup().widgets"></json-formatter>
+-->
